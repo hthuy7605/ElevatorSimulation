@@ -1,0 +1,90 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.layout {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+/* Hallway Styles */
+.hallway {
+  min-width: 200px;
+  border-right: 2px solid #ccc;
+  padding-right: 20px;
+}
+
+.floor-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.button-group button {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+/* Elevator Panel Styles */
+.shafts {
+  display: flex;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.elevator-panel {
+  flex: 1;
+  border: 2px solid #333;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.display {
+  display: flex;
+  justify-content: space-between;
+  background: #222;
+  color: #0f0;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.door-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.door-controls button {
+  flex: 1;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.internal-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.internal-buttons button {
+  padding: 15px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.internal-buttons button.active {
+  background-color: #f0c14b;
+  border-color: #a88734;
+  font-weight: bold;
+}
