@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import ElevatorSystem from './models/ElevatorSystem.js';
 import { FloorCallRequest, ElevatorDestinationRequest } from './models/Request.js';
+import { ELEVATOR_COUNT, TICK_INTERVAL_MS } from './constants.js';
 
 const app = express();
 app.use(cors());
@@ -17,7 +18,7 @@ const io = new Server(server, {
     }
 })
 
-const system = new ElevatorSystem(3);
+const system = new ElevatorSystem(ELEVATOR_COUNT);
 
 io.on('connection', (socket) => {
     console.log(`Client connected: ${socket.id}`);
@@ -49,6 +50,6 @@ server.listen(PORT, () => {
 })
 
 setInterval(() => {
-  system.tick();
-  io.emit('stateUpdate', system.getSystemState());
-}, 1000);
+    system.tick();
+    io.emit('stateUpdate', system.getSystemState());
+}, TICK_INTERVAL_MS);

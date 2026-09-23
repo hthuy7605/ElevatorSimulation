@@ -1,0 +1,1 @@
+export const FLOOR_COUNT = 10;

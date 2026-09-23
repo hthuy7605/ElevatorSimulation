@@ -1,3 +1,5 @@
+import { DOOR_OPEN_TICKS, MIN_FLOOR, MAX_FLOOR } from '../constants.js';
+
 class Elevator {
     constructor(id) {
         this.id = id;
@@ -9,12 +11,20 @@ class Elevator {
     }
 
     addStop(floor) {
-        this._stops.add(floor);
-        this.updateDirection();
+        // Clamp floor to valid range
+        const clampedFloor = Math.min(Math.max(floor, MIN_FLOOR), MAX_FLOOR);
+
+        if (clampedFloor === this._currentFloor && this._direction === 'IDLE') {
+            this.openDoor();
+        } else {
+            this._stops.add(clampedFloor);
+            this.updateDirection();
+        }
     }
 
     openDoor() {
         this._doorStatus = 'OPEN';
+        this._doorTimer = 0; // Reset timer when door opens
     }
 
     closeDoor() {
@@ -25,19 +35,27 @@ class Elevator {
         // 1. Handle auto-close logic
         if (this._doorStatus === 'OPEN') {
             this._doorTimer++;
-            if (this._doorTimer >= 3) { // Close after 3 ticks (3 seconds)
+            if (this._doorTimer >= DOOR_OPEN_TICKS) { // Close after DOOR_OPEN_TICKS ticks
                 this.closeDoor();
             }
             return;
         }
 
-        // 2. Handle movement
-        if (this._direction === 'UP') this._currentFloor++;
-        else if (this._direction === 'DOWN') this._currentFloor--;
+        // 2. Handle movement with floor bounds
+        if (this._direction === 'UP' && this._currentFloor < MAX_FLOOR) {
+            this._currentFloor++;
+        } else if (this._direction === 'DOWN' && this._currentFloor > MIN_FLOOR) {
+            this._currentFloor--;
+        }
+        // If at boundary, change direction to IDLE (or could bounce, but IDLE is simpler)
+        else if ((this._direction === 'UP' && this._currentFloor >= MAX_FLOOR) ||
+                (this._direction === 'DOWN' && this._currentFloor <= MIN_FLOOR)) {
+            this._direction = 'IDLE';
+        }
 
         // 3. Handle stopping at a floor
         if (this._stops.has(this._currentFloor)) {
-            this.openDoor(); // This triggers the open state and starts the 3s countdown
+            this.openDoor(); // This triggers the open state and starts the tick countdown
             this._stops.delete(this._currentFloor);
         }
 
@@ -53,7 +71,11 @@ class Elevator {
         const minStop = Math.min(...this._stops);
 
         if (this._direction === 'IDLE') {
-            this._direction = maxStop > this._currentFloor ? 'UP' : 'DOWN';
+        if (maxStop > this._currentFloor) {
+            this._direction = 'UP';
+        } else if (minStop < this._currentFloor) {
+            this._direction = 'DOWN';
+        }
         } else if (this._direction === 'UP' && this._currentFloor >= maxStop) {
             this._direction = 'DOWN';
         } else if (this._direction === 'DOWN' && this._currentFloor <= minStop) {

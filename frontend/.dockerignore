@@ -1,0 +1,7 @@
+node_modules
+.pnpm
+.vite
+.next
+.git
+dist
+build

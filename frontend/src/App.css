@@ -1,90 +1,194 @@
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
   font-family: sans-serif;
 }
 
-.layout {
+.building {
   display: flex;
-  gap: 40px;
-  margin-top: 30px;
-}
-
-/* Hallway Styles */
-.hallway {
-  min-width: 200px;
-  border-right: 2px solid #ccc;
-  padding-right: 20px;
-}
-
-.floor-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.button-group button {
-  margin-left: 5px;
-  cursor: pointer;
-}
-
-/* Elevator Panel Styles */
-.shafts {
-  display: flex;
+  flex-direction: row;
   gap: 20px;
-  flex-grow: 1;
+  align-items: flex-start;
+}
+
+/* Elevator Panels Column */
+.elevator-panels-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
 }
 
 .elevator-panel {
-  flex: 1;
-  border: 2px solid #333;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
-
-.display {
-  display: flex;
-  justify-content: space-between;
-  background: #222;
-  color: #0f0;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
   padding: 10px;
-  font-family: monospace;
-  font-size: 1.2rem;
-  margin-bottom: 15px;
+  width: auto;
+  min-width: 200px;
+}
+.elevator-panel h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.1em;
+  text-align: center;
+  color: #333;
 }
 
-.door-controls {
+/* Row containing the 3 elevators */
+.floor-row {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
 }
 
-.door-controls button {
-  flex: 1;
-  padding: 8px;
-  cursor: pointer;
+/* Individual elevator intersection block */
+.elevator-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
 }
 
-.internal-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+/* Hallway Buttons (Left side) */
+.hallway-buttons {
+  display: flex;
+  gap: 2px;
+  width: 45px;
+  justify-content: flex-end;
 }
 
-.internal-buttons button {
-  padding: 15px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  border: 1px solid #ccc;
+.call-btn {
+  background-color: black;
+  color: white;
+  border: none;
   border-radius: 4px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
-.internal-buttons button.active {
+.call-btn .pi {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/* Center Door Graphic */
+.door-container {
+  display: flex;
+  flex-direction: column;
+  width: 45px;
+  cursor: pointer;
+}
+
+.door-container:hover .door-graphic {
+  background-color: #f0f0f0;
+}
+
+.floor-number {
+  border: 2px solid black;
+  border-bottom: none;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 1px 0;
+}
+
+.door-graphic {
+  border: 2px solid black;
+  height: 55px;
+  display: flex;
+  overflow: hidden; /* Hides the panels when they slide outside the box */
+  background-color: #333; /* Dark background to simulate the open elevator shaft */
+}
+
+.door-panel {
+  flex: 1;
+  border: 1px solid black;
+  background-color: white; 
+  transition: transform 0.5s ease-in-out; /* Controls the sliding speed */
+}
+
+/* Door Animation States */
+.door-graphic.open .left-panel {
+  transform: translateX(-100%); /* Slides entirely to the left */
+}
+
+.door-graphic.open .right-panel {
+  transform: translateX(100%); /* Slides entirely to the right */
+}
+
+/* Active Door Highlighting */
+.door-container.active-door .floor-number,
+.door-container.active-door .door-graphic {
+  border-color: #ff4d4d;
+  color: #ff4d4d;
+}
+
+.door-container.active-door .door-panel {
+  border-color: #ff4d4d;
+}
+
+/* Door Control Buttons (Right side) */
+.internal-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.door-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon-group {
+  display: flex;
+  gap: 0px;
+}
+
+.door-btn .pi {
+  font-size: 8px;
+}
+
+/* Destination Panel (Inside Elevator) */
+.destination-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: auto;
+  align-items: center;
+}
+.dest-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.dest-btn.active {
   background-color: #f0c14b;
-  border-color: #a88734;
+  color: black;
   font-weight: bold;
 }
