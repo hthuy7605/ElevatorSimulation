@@ -1,6 +1,7 @@
 # Elevator Simulation
 
-A full-stack elevator simulation system with a Node.js/Express/Socket.IO backend and a React/Vite frontend.
+A full-stack elevator simulation system with a Node.js/Express/Socket.IO backend and a React/Vite frontend.  
+Temporarily available at <https://elevatorsim.khongbietangi.com/>
 
 ## Features
 

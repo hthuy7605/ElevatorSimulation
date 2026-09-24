@@ -12,9 +12,16 @@ body {
 
 .building {
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* Content wrapper for panels and floors */
+.content {
+  display: flex;
   flex-direction: row;
   gap: 20px;
-  align-items: flex-start;
 }
 
 /* Elevator Panels Column */
@@ -191,4 +198,14 @@ body {
   background-color: #f0c14b;
   color: black;
   font-weight: bold;
+}
+
+.app-footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #666;
+  width: 100%;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
 }
