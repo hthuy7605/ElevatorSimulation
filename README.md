@@ -63,8 +63,8 @@ I provide Dockerfiles for both backend and frontend, and a docker-compose.yml to
 
 ### Important: Socket.IO Connection in Docker
 
-When using Docker, the frontend must connect to the backend service by its service name.  
-Edit `frontend/src/App.jsx` and change the Socket.IO connection line to:
+If it is NOT WORKING properly when using Docker, the frontend may need to connect to the backend service by its service name.  
+You can try editing `frontend/src/App.jsx` and changing the Socket.IO connection line to:
 
 ```javascript
 const socket = io('http://backend:3000');
